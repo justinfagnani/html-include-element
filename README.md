@@ -12,7 +12,7 @@ Easily include external HTML into your pages.
 
 `<html-include>` works with any framework, or no framework at all.
 
-By default `<html-include>` renders the HTML in a shadow root, so it's isolated from the rest of the page. This can be configured with the `no-source` attribute.
+By default `<html-include>` renders the HTML in a shadow root, so it's isolated from the rest of the page. This can be configured with the `no-shadow` attribute.
 
 ## Instalattion 
 
