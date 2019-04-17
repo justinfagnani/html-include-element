@@ -1,6 +1,6 @@
 {
   "name": "html-include-element",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Include HTML files into your page",
   "main": "html-include-element.js",
   "module": "html-include-element.js",
@@ -9,6 +9,10 @@
   },
   "author": "Justin Fagnani <justin@fagnani.com>",
   "license": "Apache-2.0",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/justinfagnani/html-include-element.git"
+  },
   "files": [
     "html-include-element.js"
   ],
