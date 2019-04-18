@@ -81,6 +81,10 @@ export class HTMLIncludeElement extends HTMLElement {
           throw new Error(`html-include fetch failed: ${response.statusText}`);
         }
         text = await response.text();
+        if (this.src !== newValue) {
+          // the src attribute was changed before we got the response, so bail
+          return;
+        }
       } catch(e) {
         console.error(e);
       }
