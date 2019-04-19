@@ -14,7 +14,7 @@ Easily include external HTML into your pages.
 
 By default `<html-include>` renders the HTML in a shadow root, so it's isolated from the rest of the page. This can be configured with the `no-shadow` attribute.
 
-## Instalattion 
+## Installation 
 
 Install from npm:
 
@@ -71,7 +71,7 @@ The fetch mode to use: "cors", "no-cors", or "same-origin". See the fetch() docu
 
 ### `no-shadow`
 
-A boolean attribute, which if present, causes the element to include the fethed HTML into its light DOM children.
+A boolean attribute, which if present, causes the element to include the fetched HTML into its light DOM children.
 
 ## Browser Support
 
@@ -79,7 +79,7 @@ Web components are supported by Chrome, Safari, Firefox, Opera and other Chromiu
 
 Other browsers, like current versions Edge and older but recent versions of Chrome, Safari, and Firefox, will require the web components polyfills.
 
-IE11 *may* work with the polyfills if this libary is compiled, but that would be accidental: IE is explicitly not supported.
+IE11 *may* work with the polyfills if this library is compiled, but that would be accidental: IE is explicitly not supported.
 
 The web component polyfills can be loaded from unpkg.com:
 
@@ -103,7 +103,7 @@ This is a personal side-project and published basically "as-is". I will try to g
 
 And no, I will not publish an ES5 version 🤨. Applications can compile to the language level their target browsers support. Bundlers can and should be configured to compile packages in `node_modules` as necessary. 
 
-## Alternate Aproaches
+## Alternate Approaches
 
 I made this project after seeing this blog post on using iframes to implement HTML-include behavior: https://www.filamentgroup.com/lab/html-includes/
 
@@ -125,7 +125,7 @@ iframes will execute scripts. Cross-origin documents won't be moved into the mai
 
 ### Consistent styling
 
-iframes completely isolate the styles of content document from those of the host document. This means that the iframe approach has two completely different styling modes: fully isolated, or abslutely no isolation. Neither is desirable, and the styling behavior will change based on CSP, cross-origin documents, or whether script is enabled.
+iframes completely isolate the styles of content document from those of the host document. This means that the iframe approach has two completely different styling modes: fully isolated, or absolutely no isolation. Neither is desirable, and the styling behavior will change based on CSP, cross-origin documents, or whether script is enabled.
 
 This web component requires JavaScript, like all web components, but the styling behavior is consistent.
 
@@ -155,7 +155,7 @@ Content:
 <article>
   <header>...</header>
   <main>...</main>
-  <!-- render suggested artiles here -->
+  <!-- render suggested articles here -->
   <slot name="suggested-articles"></slot>
   <footer>...</footer>
 </article>
