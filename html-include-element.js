@@ -95,7 +95,7 @@ export class HTMLIncludeElement extends HTMLElement {
             display: block;
           }
         </style>
-        ${this.noShadow ? '' : text}
+        ${this.noShadow ? '<slot></slot>' : text}
       `;
       this.dispatchEvent(new Event('load'));
     }
