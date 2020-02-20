@@ -125,7 +125,8 @@ export class HTMLIncludeElement extends HTMLElement {
       } catch(e) {
         console.error(e);
       }
-      this.innerHTML = this.noShadow ? text : '';
+      // Don't destroy the light DOM if we're using shadow DOM, so that slotted content is respected
+      if (this.noShadow) this.innerHTML = text;
       this.shadowRoot.innerHTML = `
         <style>
           :host {
