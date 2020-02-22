@@ -23,6 +23,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 * Add `<slot>` to project content when using `no-shadow`
 
+### Feature
+* Defer firing the `load` event until all `<link>` elements in the shadow root are finished loading.
+
 ## [0.1.2] - 2019-04-16
 
 ### Fixed
