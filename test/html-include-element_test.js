@@ -39,6 +39,31 @@ suite('html-include-element', () => {
     assert.equal(include.innerHTML.trim(), '<h1>TEST</h1>');
   });
 
+  test('preserves light DOM when including to shadow DOM', async () => {
+    container.innerHTML = `
+      <html-include src="./test-1.html">TEST</html-include>
+    `;
+    const include = container.querySelector('html-include');
+    await new Promise((res) => {
+      include.addEventListener('load', () => res());
+    });
+    assert.equal(include.innerHTML, 'TEST');
+  });
+
+  test('waits for styles to load', async () => {
+    container.innerHTML = `
+      <html-include src="./test-styles.html">TEST</html-include>
+    `;
+    const include = container.querySelector('html-include');
+    console.log('1');
+    await new Promise((res) => {
+      include.addEventListener('load', () => {
+        assert.isNotNull(include.shadowRoot.querySelector('link').sheet);
+        res();
+      });
+    });
+  });
+
   // TODO: tests for mode & changing src attribute
 
 });
