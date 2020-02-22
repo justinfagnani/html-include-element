@@ -42,8 +42,12 @@ You can load it into a page with a `<script>` tag:
 Or import into a JavaScript module:
 
 ```js
-import HTMLIncludeElement from 'html-include-element';
+import {HTMLIncludeElement} from 'html-include-element';
 ```
+
+`<html-include>` fires a `load` even when the included file has been loaded. When including into shadow DOM (the default behavior) the `load` event is fired after any `<link>` elements in the included file have loaded as well.
+
+This allows you to hide the `<html-include>` element and show it after the `load` event fires to avoid flashes of unstyled content.
 
 ### Same-origin policy and CORS
 
