@@ -17,14 +17,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 <!-- ### Removed -->
 <!-- ### Fixed -->
 
-## [0.1.2] - 2019-05-01
+## [0.2.0] - 2020-02-21
+
+### Added
+* Defer firing the `load` event until all `<link>` elements in the shadow root are finished loading.
+### Fixed
+* Preserve light DOM content when including into shadow DOM
+
+## [0.1.3] - 2019-05-01
 
 ### Fixed
 
 * Add `<slot>` to project content when using `no-shadow`
-
-### Feature
-* Defer firing the `load` event until all `<link>` elements in the shadow root are finished loading.
 
 ## [0.1.2] - 2019-04-16
 
