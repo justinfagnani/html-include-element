@@ -98,7 +98,7 @@ export class HTMLIncludeElement extends HTMLElement {
 
   constructor() {
     super();
-    this.attachShadow({mode: 'open'});
+    this.attachShadow({mode: 'open', delegatesFocus: this.hasAttribute('delegates-focus')});
     this.shadowRoot.innerHTML = `
       <style>
         :host {
