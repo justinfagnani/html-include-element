@@ -77,7 +77,7 @@ The fetch mode to use: "cors", "no-cors", or "same-origin". See the fetch() docu
 
 A boolean attribute, which if present, causes the element to include the fetched HTML into its light DOM children.
 
-### `delegate-focus`
+### `delegates-focus`
 
 A boolean attribute, which if present, causes the element to [delegate focus](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot/delegatesFocus) to the first focusable element in the shadow root.
 
