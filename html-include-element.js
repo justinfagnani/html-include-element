@@ -9,7 +9,7 @@ function isLinkAlreadyLoaded(link) {
   try {
     return !!(link.sheet && link.sheet.cssRules);
   } catch (error) {
-    if (error.name === 'InvalidAccessError' || 'SecurityError')
+    if (error.name === 'InvalidAccessError' || error.name === 'SecurityError')
       return false;
     else
       throw error;
