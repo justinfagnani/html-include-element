@@ -17,6 +17,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 <!-- ### Removed -->
 <!-- ### Fixed -->
 
+## [0.3.0] - 2022-03-23
+
+### Added
+
+* Added `delegates-focus` attribute: https://github.com/justinfagnani/html-include-element/pull/13
+
+### Fixed
+
+* Fixed a bug with the `load` event: https://github.com/justinfagnani/html-include-element/pull/12
+
+
 ## [0.2.0] - 2020-02-21
 
 ### Added
