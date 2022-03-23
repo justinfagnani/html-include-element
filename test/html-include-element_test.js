@@ -1,6 +1,6 @@
-import '../html-include-element.js';
+import {assert} from '@esm-bundle/chai';
 
-const assert = chai.assert;
+import '../html-include-element.js';
 
 suite('html-include-element', () => {
 
@@ -18,7 +18,7 @@ suite('html-include-element', () => {
 
   test('includes some HTML', async () => {
     container.innerHTML = `
-      <html-include src="./test-1.html"></html-include>
+      <html-include src="./test/test-1.html"></html-include>
     `;
     const include = container.querySelector('html-include');
     await new Promise((res) => {
@@ -30,7 +30,7 @@ suite('html-include-element', () => {
 
   test('includes some HTML in light DOM', async () => {
     container.innerHTML = `
-      <html-include no-shadow src="./test-1.html"></html-include>
+      <html-include no-shadow src="./test/test-1.html"></html-include>
     `;
     const include = container.querySelector('html-include');
     await new Promise((res) => {
@@ -41,7 +41,7 @@ suite('html-include-element', () => {
 
   test('preserves light DOM when including to shadow DOM', async () => {
     container.innerHTML = `
-      <html-include src="./test-1.html">TEST</html-include>
+      <html-include src="./test/test-1.html">TEST</html-include>
     `;
     const include = container.querySelector('html-include');
     await new Promise((res) => {
@@ -52,10 +52,9 @@ suite('html-include-element', () => {
 
   test('waits for styles to load', async () => {
     container.innerHTML = `
-      <html-include src="./test-styles.html">TEST</html-include>
+      <html-include src="./test/test-styles.html">TEST</html-include>
     `;
     const include = container.querySelector('html-include');
-    console.log('1');
     await new Promise((res) => {
       include.addEventListener('load', () => {
         assert.isNotNull(include.shadowRoot.querySelector('link').sheet);

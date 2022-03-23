@@ -2,10 +2,10 @@
   "name": "html-include-element",
   "version": "0.2.0",
   "description": "Include HTML files into your page",
+  "type": "module",
   "main": "html-include-element.js",
-  "module": "html-include-element.js",
   "scripts": {
-    "test": "polymer test --npm"
+    "test": "wtr test/**/*_test.js --node-resolve"
   },
   "author": "Justin Fagnani <justin@fagnani.com>",
   "license": "Apache-2.0",
@@ -17,9 +17,7 @@
     "html-include-element.js"
   ],
   "devDependencies": {
-    "chai": "^4.2.0",
-    "mocha": "^5.2.0",
-    "polymer-cli": "^1.9.8",
-    "wct-mocha": "^1.0.0"
+    "@esm-bundle/chai": "^4.3.4-fix.0",
+    "@web/test-runner": "^0.13.27"
   }
 }
