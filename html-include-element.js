@@ -30,7 +30,7 @@ async function linkLoaded(link) {
     else if (isLinkAlreadyLoaded(link)) resolve(link.sheet);
     else {
       link.addEventListener('load', () => resolve(link.sheet), { once: true });
-      link.addEventListener('error', reject, { once: true });
+      link.addEventListener('error', () => reject({ link }), { once: true });
     }
   });
 }
@@ -139,7 +139,14 @@ export class HTMLIncludeElement extends HTMLElement {
       // If we're not using shadow DOM, then the consuming root
       // is responsible to load its own resources
       if (!this.noShadow) {
-        await Promise.all([...this.shadowRoot.querySelectorAll('link')].map(linkLoaded));
+        const results = await Promise.allSettled([...this.shadowRoot.querySelectorAll('link')].map(linkLoaded));
+        for (const result of results) {
+          if (result.status === 'rejected') {
+            const { link } = result.reason;
+            const message =  `Could not load ${link.href}`;
+            console.error(message);
+          }
+        }
       }
 
       this.dispatchEvent(new Event('load'));

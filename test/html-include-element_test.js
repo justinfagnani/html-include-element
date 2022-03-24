@@ -1,4 +1,5 @@
 import {assert} from '@esm-bundle/chai';
+import {stubMethod, restore} from 'hanbi';
 
 import '../html-include-element.js';
 
@@ -61,6 +62,18 @@ suite('html-include-element', () => {
         res();
       });
     });
+  });
+
+  test('gracefully handles link loading errors', async () => {
+    const stub = stubMethod(console, 'error');
+    container.innerHTML = `
+      <html-include src="./test/test-link-errors.html">TEST</html-include>
+    `;
+    const include = container.querySelector('html-include');
+    await new Promise((res) => include.addEventListener('load', res));
+    assert.isNotNull(include.shadowRoot.querySelector('h1'));
+    assert.isTrue([...stub.calls].some(call => call.args[0]?.match(/^Could not load/)));
+    restore();
   });
 
   // TODO: tests for mode & changing src attribute
