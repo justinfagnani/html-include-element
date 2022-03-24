@@ -17,6 +17,7 @@
     "html-include-element.js"
   ],
   "devDependencies": {
+    "@changesets/cli": "^2.21.1",
     "@esm-bundle/chai": "^4.3.4-fix.0",
     "@web/test-runner": "^0.13.27"
   }
