@@ -1,8 +1,14 @@
 {
   "compilerOptions": {
+    "jsx": "preserve",
     "allowJs": true,
     "checkJs": true,
     "noEmit": true
   },
-  "include": ["html-include-element.js", "src"]
+  "include": [
+    "html-include-element.js",
+    "src",
+    ".eslintrc.js",
+    ".prettierrc.js"
+  ]
 }
