@@ -21,35 +21,39 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-* Added `delegates-focus` attribute: https://github.com/justinfagnani/html-include-element/pull/13
+- Added `delegates-focus` attribute: https://github.com/justinfagnani/html-include-element/pull/13
 
 ### Fixed
 
-* Fixed a bug with the `load` event: https://github.com/justinfagnani/html-include-element/pull/12
-
+- Fixed a bug with the `load` event: https://github.com/justinfagnani/html-include-element/pull/12
 
 ## [0.2.0] - 2020-02-21
 
 ### Added
-* Defer firing the `load` event until all `<link>` elements in the shadow root are finished loading.
+
+- Defer firing the `load` event until all `<link>` elements in the shadow root are finished loading.
+
 ### Fixed
-* Preserve light DOM content when including into shadow DOM
+
+- Preserve light DOM content when including into shadow DOM
 
 ## [0.1.3] - 2019-05-01
 
 ### Fixed
 
-* Add `<slot>` to project content when using `no-shadow`
+- Add `<slot>` to project content when using `no-shadow`
 
 ## [0.1.2] - 2019-04-16
 
 ### Fixed
-* Handle possible race condition when changing the `src` attribute.
+
+- Handle possible race condition when changing the `src` attribute.
 
 ## [0.1.1] - 2019-04-16
 
 ### Fixed
-* Add repository to package.json
+
+- Add repository to package.json
 
 ## [0.1.0] - 2019-04-16
 

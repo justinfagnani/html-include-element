@@ -1,4 +1,4 @@
-const LINK_LOAD_SUPPORTED = 'onload' in HTMLLinkElement.prototype;
+const LINK_LOAD_SUPPORTED = 'onload' in HTMLLinkElement.prototype
 
 /**
  * Firefox may throw an error when accessing a not-yet-loaded cssRules property.
@@ -7,12 +7,14 @@ const LINK_LOAD_SUPPORTED = 'onload' in HTMLLinkElement.prototype;
  */
 function isLinkAlreadyLoaded(link) {
   try {
-    return !!(link.sheet && link.sheet.cssRules);
+    return !!(link.sheet && link.sheet.cssRules)
   } catch (error) {
-    if (error.name === 'InvalidAccessError' || error.name === 'SecurityError')
-      return false;
-    else
-      throw error;
+    if (
+      error.name === 'InvalidAccessError' ||
+      error.name === 'SecurityError'
+    )
+      return false
+    else throw error
   }
 }
 
@@ -26,13 +28,15 @@ function isLinkAlreadyLoaded(link) {
  */
 async function linkLoaded(link) {
   return new Promise((resolve, reject) => {
-    if (!LINK_LOAD_SUPPORTED) resolve();
-    else if (isLinkAlreadyLoaded(link)) resolve(link.sheet);
+    if (!LINK_LOAD_SUPPORTED) resolve()
+    else if (isLinkAlreadyLoaded(link)) resolve(link.sheet)
     else {
-      link.addEventListener('load', () => resolve(link.sheet), { once: true });
-      link.addEventListener('error', reject, { once: true });
+      link.addEventListener('load', () => resolve(link.sheet), {
+        once: true,
+      })
+      link.addEventListener('error', reject, { once: true })
     }
-  });
+  })
 }
 
 /**
@@ -50,7 +54,7 @@ async function linkLoaded(link) {
  */
 export class HTMLIncludeElement extends HTMLElement {
   static get observedAttributes() {
-    return ['src', 'mode', 'no-shadow'];
+    return ['src', 'mode', 'no-shadow']
   }
 
   /**
@@ -59,11 +63,11 @@ export class HTMLIncludeElement extends HTMLElement {
    * Setting this property causes a fetch the HTML from the URL.
    */
   get src() {
-    return this.getAttribute('src');
+    return this.getAttribute('src')
   }
 
   set src(value) {
-    this.setAttribute('src', value);
+    this.setAttribute('src', value)
   }
 
   /**
@@ -73,11 +77,11 @@ export class HTMLIncludeElement extends HTMLElement {
    * Setting this property does not re-fetch the HTML.
    */
   get mode() {
-    return this.getAttribute('mode');
+    return this.getAttribute('mode')
   }
 
   set mode(value) {
-    this.setAttribute('mode', value);
+    this.setAttribute('mode', value)
   }
 
   /**
@@ -85,48 +89,53 @@ export class HTMLIncludeElement extends HTMLElement {
    * fetch. Setting this property does not re-fetch the HTML.
    */
   get noShadow() {
-    return this.hasAttribute('no-shadow');
+    return this.hasAttribute('no-shadow')
   }
 
   set noShadow(value) {
     if (!!value) {
-      this.setAttribute('no-shadow', '');
+      this.setAttribute('no-shadow', '')
     } else {
-      this.removeAttribute('no-shadow');
+      this.removeAttribute('no-shadow')
     }
   }
 
   constructor() {
-    super();
-    this.attachShadow({mode: 'open', delegatesFocus: this.hasAttribute('delegates-focus')});
+    super()
+    this.attachShadow({
+      mode: 'open',
+      delegatesFocus: this.hasAttribute('delegates-focus'),
+    })
     this.shadowRoot.innerHTML = `
       <style>
         :host {
           display: block;
         }
       </style>
-    `;
+    `
   }
 
   async attributeChangedCallback(name, oldValue, newValue) {
     if (name === 'src') {
-      let text = '';
+      let text = ''
       try {
-        const mode = this.mode || 'cors';
-        const response = await fetch(newValue, {mode});
+        const mode = this.mode || 'cors'
+        const response = await fetch(newValue, { mode })
         if (!response.ok) {
-          throw new Error(`html-include fetch failed: ${response.statusText}`);
+          throw new Error(
+            `html-include fetch failed: ${response.statusText}`,
+          )
         }
-        text = await response.text();
+        text = await response.text()
         if (this.src !== newValue) {
           // the src attribute was changed before we got the response, so bail
-          return;
+          return
         }
-      } catch(e) {
-        console.error(e);
+      } catch (e) {
+        console.error(e)
       }
       // Don't destroy the light DOM if we're using shadow DOM, so that slotted content is respected
-      if (this.noShadow) this.innerHTML = text;
+      if (this.noShadow) this.innerHTML = text
       this.shadowRoot.innerHTML = `
         <style>
           :host {
@@ -134,16 +143,20 @@ export class HTMLIncludeElement extends HTMLElement {
           }
         </style>
         ${this.noShadow ? '<slot></slot>' : text}
-      `;
+      `
 
       // If we're not using shadow DOM, then the consuming root
       // is responsible to load its own resources
       if (!this.noShadow) {
-        await Promise.all([...this.shadowRoot.querySelectorAll('link')].map(linkLoaded));
+        await Promise.all(
+          [...this.shadowRoot.querySelectorAll('link')].map(
+            linkLoaded,
+          ),
+        )
       }
 
-      this.dispatchEvent(new Event('load'));
+      this.dispatchEvent(new Event('load'))
     }
   }
 }
-customElements.define('html-include', HTMLIncludeElement);
+customElements.define('html-include', HTMLIncludeElement)

@@ -14,7 +14,7 @@ Easily include external HTML into your pages.
 
 By default `<html-include>` renders the HTML in a shadow root, so it's isolated from the rest of the page. This can be configured with the `no-shadow` attribute.
 
-## Installation 
+## Installation
 
 Install from npm:
 
@@ -32,7 +32,10 @@ You can load it into a page with a `<script>` tag:
 
 ```html
 <head>
-  <script type="module" src='https://unpkg.com/html-include-element'></script>
+  <script
+    type="module"
+    src="https://unpkg.com/html-include-element"
+  ></script>
 </head>
 <body>
   <html-include src="./my-local-file.html"></html-include>
@@ -42,7 +45,7 @@ You can load it into a page with a `<script>` tag:
 Or import into a JavaScript module:
 
 ```js
-import {HTMLIncludeElement} from 'html-include-element';
+import { HTMLIncludeElement } from 'html-include-element'
 ```
 
 `<html-include>` fires a `load` even when the included file has been loaded. When including into shadow DOM (the default behavior) the `load` event is fired after any `<link>` elements in the included file have loaded as well.
@@ -87,7 +90,7 @@ Web components are supported by Chrome, Safari, Firefox, Opera and other Chromiu
 
 Other browsers, like current versions Edge and older but recent versions of Chrome, Safari, and Firefox, will require the web components polyfills.
 
-IE11 *may* work with the polyfills if this library is compiled, but that would be accidental: IE is explicitly not supported.
+IE11 _may_ work with the polyfills if this library is compiled, but that would be accidental: IE is explicitly not supported.
 
 The web component polyfills can be loaded from unpkg.com:
 
@@ -109,7 +112,7 @@ npm i @webcomponents/webcomponentsjs
 
 This is a personal side-project and published basically "as-is". I will try to get CI running, add more tests, and improve the documentation as time permits. PRs welcome, but if I'm not responsive, please feel free to fork.
 
-And no, I will not publish an ES5 version 🤨. Applications can compile to the language level their target browsers support. Bundlers can and should be configured to compile packages in `node_modules` as necessary. 
+And no, I will not publish an ES5 version 🤨. Applications can compile to the language level their target browsers support. Bundlers can and should be configured to compile packages in `node_modules` as necessary.
 
 ## Alternate Approaches
 
@@ -117,7 +120,7 @@ I made this project after seeing this blog post on using iframes to implement HT
 
 That approach uses an iframe to load the external HTML document, then inline script to move the nodes into the main document. I believe the web component approach is far better for a few reasons:
 
-### CSP Compliant 
+### CSP Compliant
 
 `onload` attributes are blocked by CSP most policies.
 
@@ -154,6 +157,7 @@ Having the implementation of the include be re-written for every instance will m
 Since the included HTML is rendered in a shadow root, it can contain `<slot>` elements, allowing the included content to project children from the `<html-include>` into itself. This may be a fringe case, but imaging a CMS system where the content can control where certain host-provided blocks go. I'm very curious to see how this might be used.
 
 Main page:
+
 ```html
 <html-include>
   <div slot="suggested-articles">...</div>
@@ -161,6 +165,7 @@ Main page:
 ```
 
 Content:
+
 ```html
 <article>
   <header>...</header>
