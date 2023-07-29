@@ -1,0 +1,79 @@
+{
+  // Allow committing to any branch, until we need to establish a pr process
+  "git.branchProtectionPrompt": "alwaysPrompt",
+
+  "files.associations": {
+    ".babelrc": "json5",
+    ".git-blame-ignore-revs": "git-commit",
+    "*.template": "properties" // nginx.template
+  },
+
+  // Format markdown correctly:
+  "[markdown]": {
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+  },
+
+  // Nice to have for any repo:
+  // (use `typescript` version that's inside `node_modules`)
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+
+  // Better safe than sorry:
+  "git.useForcePushWithLease": true,
+
+  // Generic settings for our repo:
+  "editor.tabSize": 2,
+
+  // By default, format ALL file types with prettier onSave:
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // Enable eslint vscode extension:
+  "eslint.enable": true,
+  "eslint.format.enable": false, // assert default
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "prettier.useEditorConfig": true,
+  "eslint.useESLintClass": true,
+  "eslint.probe": [],
+
+  // To improve performance a little bit, comment out rest of settings, and un-comment this line.
+  "editor.codeActionsOnSave": ["source.fixAll.eslint"]
+  // There is a small risk of hitting bugs like this: https://github.com/prettier/prettier-vscode/issues/1555
+
+  // Run eslint on save, then prettier afterwards
+  // Apologies if this affects any of your personal extensions - maybe we can add them into the repo?
+  // "editor.codeActionsOnSave": {},
+  // "[typescript]": {
+  //   "editor.formatOnSave": false,
+  //   "editor.codeActionsOnSave": [
+  //     "source.fixAll.eslint",
+  //     "source.formatDocument"
+  //   ]
+  // },
+  // "[typescriptreact]": {
+  //   "editor.formatOnSave": false,
+  //   "editor.codeActionsOnSave": [
+  //     "source.fixAll.eslint",
+  //     "source.formatDocument"
+  //   ]
+  // },
+  // "[javascript]": {
+  //   "editor.formatOnSave": false,
+  //   "editor.codeActionsOnSave": [
+  //     "source.fixAll.eslint",
+  //     "source.formatDocument"
+  //   ]
+  // },
+  // "[javascriptreact]": {
+  //   "editor.formatOnSave": false,
+  //   "editor.codeActionsOnSave": [
+  //     "source.fixAll.eslint",
+  //     "source.formatDocument"
+  //   ]
+  // }
+}
