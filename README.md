@@ -127,9 +127,11 @@ By using `fetch()` we can make a CORS request for the content. A cross-origin if
 
 For the web components, more options from `fetch()` can be exposed as well, such as `method`, `body`, `integrety`, and `cache`.
 
-### Scripts don't execute
+### ~Scripts don't execute~
 
-iframes will execute scripts. Cross-origin documents won't be moved into the main page, so their scripts will run to completion. I'm not exactly sure what will happen with same-origin script when they are moved into the main document. It may depend on the presence of other scripts or external resources. Either way, it's a feature that `<html-include>` will not run scripts due to using `innerHTML`.
+~iframes will execute scripts. Cross-origin documents won't be moved into the main page, so their scripts will run to completion. I'm not exactly sure what will happen with same-origin script when they are moved into the main document. It may depend on the presence of other scripts or external resources. Either way, it's a feature that `<html-include>` will not run scripts due to using `innerHTML`.~
+
+This fork includes a work-around, instead of setting `innerHTML`, it will include parse using dom methods, select `<script>` tags, store the script attributes (src/etc) in a new data structure, and then append those scripts in the same order they appeared in the original html document.
 
 ### Consistent styling
 
