@@ -175,30 +175,10 @@ export class HTMLIncludeElement extends HTMLElement {
           Array.from(
             this.shadowRoot.querySelectorAll('link'),
           ).map(linkLoaded),
-        ) /* .then(() => {
-          this.dispatchEvent(new Event('stylesheets-loaded'))
-        }) */
+        )
       }
 
       this.dispatchEvent(new Event('load'))
-
-      // await Promise.all([
-      //   Promise.all(
-      //     Array.from(
-      //       this.shadowRoot.querySelectorAll('script'),
-      //     ).map(scriptLoaded),
-      //   ).then(() => {
-      //     this.dispatchEvent(new Event('scripts-loaded'))
-      //   }),
-      //   Promise.all(
-      //     Array.from(
-      //       this.shadowRoot.querySelectorAll('img'),
-      //     ).map(imageLoaded),
-      //   ).then(() => {
-      //     this.dispatchEvent(new Event('images-loaded'))
-      //   }),
-      // ]);
-      // this.dispatchEvent(new Event('fully-loaded'))
     }
   }
 }
