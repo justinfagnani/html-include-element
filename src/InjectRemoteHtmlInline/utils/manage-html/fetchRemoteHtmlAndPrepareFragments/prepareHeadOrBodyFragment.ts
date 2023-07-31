@@ -29,6 +29,7 @@ export const prepareHeadOrBodyFragment = ({
   }
   const scripts = [] as Array<SerializedScript>
   /** "hosted" only tags are tags meant the micro-frontend if it's loading as-is, i.e. via a browser popup or webview. */
+  // There's probably a better name that "hosted" we should use.
   let amSkippingHostedOnlyTags = false
   node.childNodes.forEach((childNode) => {
     if (childNode.nodeType === Node.ELEMENT_NODE) {

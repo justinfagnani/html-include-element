@@ -7,7 +7,7 @@ import type { PreparedFragments } from './types/PreparedFragments'
 /**
  * Fetches the html from the given url,
  * parses it,
- * filters out some tags from <head> which are meant only for the hosted site,
+ * filters out some tags from <head> which are meant only for a "hosted site",
  * transforms relative urls to absolute urls in script src + link href attributes,
  * and returns the <head> and <body> tags as DocumentFragments to be appended to the current document.
  */
