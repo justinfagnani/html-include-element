@@ -42,6 +42,52 @@ async function linkLoaded(link) {
   })
 }
 
+const INIT_HTML = `<style> :host { display: block; } </style>`
+
+let htmlAlreadyRendered = false
+
+/** append nodes: scripts and the like. */
+async function appendInitialHtml({
+  component,
+  htmlString,
+  htmlUrl,
+}) {
+  component.shadowRoot.innerHTML = INIT_HTML
+
+  if (!htmlString) return
+
+  const preparedFragments = prepareAllFragments({
+    nodes: getPrimaryHtmlNodes(htmlString),
+    htmlUrl,
+  })
+
+  component.shadowRoot.appendChild(
+    preparedFragments.headFragment,
+  )
+  component.shadowRoot.appendChild(
+    preparedFragments.bodyFragment,
+  )
+  component.shadowRoot.appendChild(
+    preparedFragments.scriptsFragment,
+  )
+  htmlAlreadyRendered = true
+
+  if (component.noShadow) {
+    // If we're not using shadow DOM, then the consuming root
+    // is responsible to load its own resources.
+    // We therefore don't care about waiting for all resources to finish loading.
+  } else {
+    Promise.all(
+      // wait for stylesheets simply to avoid FOUC
+      Array.from(
+        component.shadowRoot.querySelectorAll('link'),
+      ).map(linkLoaded),
+    ).then(() => {
+      component.dispatchEvent(new Event('load'))
+    })
+  }
+}
+
 /**
  * Embeds HTML into a document.
  *
@@ -55,7 +101,8 @@ async function linkLoaded(link) {
  * attribute is present, the HTML will be embedded into the child content.
  *
  */
-export class HTMLIncludeElement extends HTMLElement {
+// 1. SSR: `HTMLElement` is not defined!
+class HTMLIncludeElement extends HTMLElement {
   static get observedAttributes() {
     return ['src', 'mode', 'no-shadow']
   }
@@ -109,19 +156,32 @@ export class HTMLIncludeElement extends HTMLElement {
       mode: 'open',
       delegatesFocus: this.hasAttribute('delegates-focus'),
     })
-    this.shadowRoot.innerHTML = `
-      <style>
-        :host {
-          display: block;
-        }
-      </style>
-    `
+    const microAppName = this.getAttribute('app-name') // i.e. "bacon";
+    const initialHtml = window[microAppName]?.initialHtml
+    const initialHtmlUrl = window[microAppName]?.initialHtmlUrl
+    if (initialHtml) {
+      if (!initialHtmlUrl) {
+        throw new Error(
+          'initialHtml is defined, but initialHtmlUrl is not. initialHtmlUrl is needed so we can correctly prefix link/script urls',
+        )
+      }
+      appendInitialHtml({
+        component: this,
+        htmlString: initialHtml,
+        htmlUrl: initialHtmlUrl,
+      })
+    }
   }
 
   async attributeChangedCallback(name, oldValue, newValue) {
     if (name === 'src') {
       let text = ''
       try {
+        if (htmlAlreadyRendered) {
+          throw new Error(
+            'html has already been rendered. Re-rendering is not yet supported. (Ideally we want to send a sort of history.pushState event into the micro-frontend)',
+          )
+        }
         const mode = this.mode || 'cors'
         // Later on, to support streaming SSR: https://developer.chrome.com/articles/fetch-streaming-requests/#previously-on-the-exciting-adventures-of-fetch-streams
         const response = await fetch(newValue, {
@@ -145,15 +205,14 @@ export class HTMLIncludeElement extends HTMLElement {
       }
       // Don't destroy the light DOM if we're using shadow DOM, so that slotted content is respected
       // if (this.noShadow) this.innerHTML = text
-      this.shadowRoot.innerHTML = `
-        <style>
-          :host {
-            display: block;
-          }
-        </style>
-      `
 
       // append nodes: scripts and the like.
+      appendInitialHtml({
+        htmlString: text,
+        htmlUrl: newValue,
+        component: this,
+      })
+
       const preparedFragments = prepareAllFragments({
         nodes: getPrimaryHtmlNodes(text),
         htmlUrl: newValue,
