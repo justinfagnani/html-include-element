@@ -75,7 +75,7 @@ export class HTMLIncludeElement extends HTMLElement {
 
   /**
    * The fetch mode to use: "cors", "no-cors", or "same-origin".
-   * See the fetch() documents for more information.
+   * See the fetch() documentation for more information.
    *
    * Setting this property does not re-fetch the HTML.
    */

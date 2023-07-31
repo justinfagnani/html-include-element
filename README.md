@@ -74,7 +74,7 @@ The URL to fetch an HTML document from.
 
 ### `mode`
 
-The fetch mode to use: "cors", "no-cors", or "same-origin". See the fetch() documents for more information.
+The fetch mode to use: "cors", "no-cors", or "same-origin". See the fetch() documentation for more information.
 
 ### `no-shadow`
 
