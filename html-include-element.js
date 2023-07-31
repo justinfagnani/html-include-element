@@ -170,32 +170,35 @@ export class HTMLIncludeElement extends HTMLElement {
         // is responsible to load its own resources.
         // We therefore don't care about waiting for all resources to finish loading.
       } else {
-        await Promise.all([
-          Promise.all(
-            Array.from(
-              this.shadowRoot.querySelectorAll('link'),
-            ).map(linkLoaded),
-          ).then(() => {
-            this.dispatchEvent(new Event('stylesheets-loaded'))
-          }),
-          Promise.all(
-            Array.from(
-              this.shadowRoot.querySelectorAll('script'),
-            ).map(scriptLoaded),
-          ).then(() => {
-            this.dispatchEvent(new Event('scripts-loaded'))
-          }),
-          Promise.all(
-            Array.from(
-              this.shadowRoot.querySelectorAll('img'),
-            ).map(imageLoaded),
-          ).then(() => {
-            this.dispatchEvent(new Event('images-loaded'))
-          }),
-        ])
+        await Promise.all(
+          // wait for stylesheets simply to avoid FOUC
+          Array.from(
+            this.shadowRoot.querySelectorAll('link'),
+          ).map(linkLoaded),
+        ) /* .then(() => {
+          this.dispatchEvent(new Event('stylesheets-loaded'))
+        }) */
       }
 
       this.dispatchEvent(new Event('load'))
+
+      // await Promise.all([
+      //   Promise.all(
+      //     Array.from(
+      //       this.shadowRoot.querySelectorAll('script'),
+      //     ).map(scriptLoaded),
+      //   ).then(() => {
+      //     this.dispatchEvent(new Event('scripts-loaded'))
+      //   }),
+      //   Promise.all(
+      //     Array.from(
+      //       this.shadowRoot.querySelectorAll('img'),
+      //     ).map(imageLoaded),
+      //   ).then(() => {
+      //     this.dispatchEvent(new Event('images-loaded'))
+      //   }),
+      // ]);
+      // this.dispatchEvent(new Event('fully-loaded'))
     }
   }
 }
