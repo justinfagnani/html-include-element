@@ -116,7 +116,7 @@ And no, I will not publish an ES5 version 🤨. Applications can compile to the 
 
 ## Alternate Approaches
 
-I made this project after seeing this blog post on using iframes to implement HTML-include behavior: https://www.filamentgroup.com/lab/html-includes/
+I made this project after seeing this blog post on using iframes to implement HTML-include behavior: <https://www.filamentgroup.com/lab/html-includes/>
 
 That approach uses an iframe to load the external HTML document, then inline script to move the nodes into the main document. I believe the web component approach is far better for a few reasons:
 
